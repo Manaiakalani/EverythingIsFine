@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lo-fi Flaming Cat Dance</title>
+    <link rel="stylesheet" href="effects.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(45deg, #2c1810, #4a2c17, #2c1810);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease-in-out infinite;
+            font-family: 'Courier Prime', monospace;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .container {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .main-image {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 15px;
+            box-shadow: 
+                0 0 50px rgba(255, 140, 0, 0.4),
+                0 0 100px rgba(255, 69, 0, 0.2),
+                inset 0 0 50px rgba(255, 140, 0, 0.1);
+            animation: 
+                float 6s ease-in-out infinite,
+                glow 4s ease-in-out infinite alternate;
+            filter: 
+                contrast(1.1) 
+                saturate(1.2) 
+                brightness(1.1)
+                sepia(0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .main-image:hover {
+            transform: scale(1.02) rotate(0.5deg);
+            box-shadow: 
+                0 0 70px rgba(255, 140, 0, 0.6),
+                0 0 140px rgba(255, 69, 0, 0.3);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-8px) rotate(0.5deg); }
+            50% { transform: translateY(-5px) rotate(0deg); }
+            75% { transform: translateY(-12px) rotate(-0.5deg); }
+        }
+        
+        @keyframes glow {
+            from { 
+                box-shadow: 
+                    0 0 30px rgba(255, 140, 0, 0.3),
+                    0 0 60px rgba(255, 69, 0, 0.15);
+            }
+            to { 
+                box-shadow: 
+                    0 0 50px rgba(255, 140, 0, 0.5),
+                    0 0 100px rgba(255, 69, 0, 0.25);
+            }
+        }
+        
+        /* Fire particles */
+        .fire-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, #ff4500, #ff8c00, transparent);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: fireRise 3s infinite ease-out;
+        }
+        
+        @keyframes fireRise {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-100px) scale(1.2);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-200px) scale(0.5);
+                opacity: 0;
+            }
+        }
+        
+        /* Floating embers */
+        .ember {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ffaa00;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: emberFloat 8s infinite linear;
+            box-shadow: 0 0 6px #ff6600;
+        }
+        
+        @keyframes emberFloat {
+            0% {
+                transform: translateX(0) translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(200px) translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Lo-fi text overlay */
+        .lo-fi-text {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #ff8c00;
+            font-size: 1.2em;
+            font-weight: 700;
+            text-shadow: 
+                0 0 10px rgba(255, 140, 0, 0.8),
+                2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: textPulse 3s ease-in-out infinite;
+            user-select: none;
+        }
+        
+        @keyframes textPulse {
+            0%, 100% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+        
+        /* Flame border effect */
+        .flame-border {
+            position: absolute;
+            inset: -10px;
+            border-radius: 25px;
+            background: linear-gradient(45deg, 
+                transparent, 
+                rgba(255, 140, 0, 0.1), 
+                transparent, 
+                rgba(255, 69, 0, 0.1),
+                transparent
+            );
+            background-size: 200% 200%;
+            animation: flameBorder 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes flameBorder {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        /* Scanlines effect for retro feel */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(255, 140, 0, 0.03) 2px,
+                rgba(255, 140, 0, 0.03) 4px
+            );
+            pointer-events: none;
+            animation: scanlineMove 2s linear infinite;
+        }
+        
+        @keyframes scanlineMove {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+        
+        /* Click interaction */
+        .container:active .main-image {
+            transform: scale(0.98) rotate(1deg);
+            filter: 
+                contrast(1.3) 
+                saturate(1.5) 
+                brightness(1.3)
+                sepia(0.2);
+        }
+        
+        /* Audio visualizer bars (decorative) */
+        .audio-bar {
+            position: absolute;
+            bottom: 20px;
+            width: 4px;
+            background: linear-gradient(to top, #ff4500, #ff8c00);
+            border-radius: 2px;
+            animation: audioVisualize 1s ease-in-out infinite;
+        }
+        
+        @keyframes audioVisualize {
+            0%, 100% { height: 20px; }
+            50% { height: 40px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="scanlines"></div>
+    <div class="vhs-effect"></div>
+    <div class="film-grain"></div>
+    
+    <!-- Corner flames -->
+    <div class="corner-flame top-left"></div>
+    <div class="corner-flame top-right"></div>
+    <div class="corner-flame bottom-left"></div>
+    <div class="corner-flame bottom-right"></div>
+    
+    <div class="container">
+        <div class="flame-border"></div>
+        <img src="2092sn.jpg" alt="Cat Dance" class="main-image" id="mainImage">
+        <div class="lo-fi-text">~ lo-fi flaming vibes ~</div>
+        
+        <!-- Heat waves -->
+        <div class="heat-wave" style="top: 20%; animation-delay: 0s;"></div>
+        <div class="heat-wave" style="top: 40%; animation-delay: 0.5s;"></div>
+        <div class="heat-wave" style="top: 60%; animation-delay: 1s;"></div>
+        <div class="heat-wave" style="top: 80%; animation-delay: 1.5s;"></div>
+        
+        <!-- Audio visualizer bars -->
+        <div class="audio-bar" style="left: 20px; animation-delay: 0s;"></div>
+        <div class="audio-bar" style="left: 30px; animation-delay: 0.1s;"></div>
+        <div class="audio-bar" style="left: 40px; animation-delay: 0.2s;"></div>
+        <div class="audio-bar" style="left: 50px; animation-delay: 0.3s;"></div>
+        <div class="audio-bar" style="left: 60px; animation-delay: 0.4s;"></div>
+    </div>
+
+    <script>
+        // Create fire particles
+        function createFireParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'fire-particle';
+            
+            const container = document.querySelector('.container');
+            const rect = container.getBoundingClientRect();
+            
+            particle.style.left = Math.random() * rect.width + 'px';
+            particle.style.bottom = '0px';
+            particle.style.animationDelay = Math.random() * 2 + 's';
+            particle.style.animationDuration = (2 + Math.random() * 2) + 's';
+            
+            container.appendChild(particle);
+            
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.parentNode.removeChild(particle);
+                }
+            }, 4000);
+        }
+        
+        // Create floating embers
+        function createEmber() {
+            const ember = document.createElement('div');
+            ember.className = 'ember';
+            
+            ember.style.left = (Math.random() * window.innerWidth) + 'px';
+            ember.style.animationDelay = Math.random() * 8 + 's';
+            ember.style.animationDuration = (6 + Math.random() * 4) + 's';
+            
+            document.body.appendChild(ember);
+            
+            setTimeout(() => {
+                if (ember.parentNode) {
+                    ember.parentNode.removeChild(ember);
+                }
+            }, 12000);
+        }
+        
+        // Add interactive click effect
+        const mainImage = document.getElementById('mainImage');
+        mainImage.addEventListener('click', function() {
+            // Create burst of fire particles on click
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => createFireParticle(), i * 30);
+            }
+            
+            // Add screen shake effect
+            document.body.style.animation = 'screenShake 0.5s ease-in-out';
+            setTimeout(() => {
+                document.body.style.animation = 'gradientShift 8s ease-in-out infinite, screenFlicker 4s infinite';
+            }, 500);
+        });
+        
+        // Add screen shake animation
+        const shakeStyle = document.createElement('style');
+        shakeStyle.textContent = `
+            @keyframes screenShake {
+                0%, 100% { transform: translate(0); }
+                10% { transform: translate(-2px, -1px); }
+                20% { transform: translate(2px, 1px); }
+                30% { transform: translate(-1px, 2px); }
+                40% { transform: translate(1px, -1px); }
+                50% { transform: translate(-2px, 1px); }
+                60% { transform: translate(2px, -2px); }
+                70% { transform: translate(-1px, -1px); }
+                80% { transform: translate(1px, 2px); }
+                90% { transform: translate(-2px, -1px); }
+            }
+        `;
+        document.head.appendChild(shakeStyle);
+        
+        // Create ambient particles continuously
+        function createAmbientParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'ambient-particle';
+            
+            const size = Math.random() * 6 + 2;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.parentNode.removeChild(particle);
+                }
+            }, 20000);
+        }
+        
+        // Continuously generate effects
+        setInterval(createFireParticle, 600);
+        setInterval(createEmber, 1200);
+        setInterval(createAmbientParticle, 2000);
+        
+        // Add some random sparkle effects
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.style.position = 'absolute';
+            sparkle.style.width = '2px';
+            sparkle.style.height = '2px';
+            sparkle.style.background = '#ffd700';
+            sparkle.style.borderRadius = '50%';
+            sparkle.style.boxShadow = '0 0 6px #ffd700';
+            sparkle.style.pointerEvents = 'none';
+            
+            const container = document.querySelector('.container');
+            const rect = container.getBoundingClientRect();
+            
+            sparkle.style.left = Math.random() * rect.width + 'px';
+            sparkle.style.top = Math.random() * rect.height + 'px';
+            sparkle.style.animation = 'sparkle 2s ease-out forwards';
+            
+            container.appendChild(sparkle);
+            
+            setTimeout(() => {
+                if (sparkle.parentNode) {
+                    sparkle.parentNode.removeChild(sparkle);
+                }
+            }, 2000);
+        }
+        
+        // Add sparkle animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sparkle {
+                0% { 
+                    transform: scale(0) rotate(0deg);
+                    opacity: 1;
+                }
+                50% {
+                    transform: scale(1.5) rotate(180deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(0) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        setInterval(createSparkle, 2000);
+        
+        // Add subtle image wobble on mouse move
+        document.addEventListener('mousemove', (e) => {
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            const moveX = (e.clientX - centerX) / centerX;
+            const moveY = (e.clientY - centerY) / centerY;
+            
+            mainImage.style.transform = `
+                translate(${moveX * 5}px, ${moveY * 5}px) 
+                rotate(${moveX * 2}deg)
+            `;
+        });
+    </script>
+    <script src="lofi-vibes.js"></script>
+</body>
+</html>

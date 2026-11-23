@@ -1,0 +1,9 @@
+# Version updates for package ecosystems in this repository.
+# There is no package.json or other manifest, so npm is not configured.
+# GitHub Actions is configured because .github/workflows/ci.yml uses actions.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
